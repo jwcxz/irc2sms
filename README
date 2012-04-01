@@ -1,0 +1,24 @@
+irc2sms
+
+http://jwcxz.com/projects/irc2sms
+
+This is a very simple ZeroMQ-powered script that will take messages received when away and forward them via SMS to a mobile phone using Google Voice.  It's absurdly dependency-heavy:
+
+    - Weechat
+        - zmq_notify plugin
+            - Ruby
+            - ZMQ Ruby Gem
+
+    - Python 2
+        - ZMQ bindings for Python
+        - PyYAML
+        - pygooglevoice
+
+Installation and configuration is very simple:
+
+    0. Install all of that crap.
+
+    1. If you don't have ~/.gvoice, run python and import googlevoice.  This
+       will create a template ~/.gvoice for you to edit.
+    
+    2. Run irc2sms.py -h to find out the command line options.
