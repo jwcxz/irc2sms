@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-import argparse, time, yaml, zmq
+import argparse, sys, time, yaml, zmq
 from googlevoice import Voice
 
 p = argparse.ArgumentParser(description="irc2sms");
@@ -54,6 +54,11 @@ while True:
 
                 voice.send_sms(args.destination, msg);
                 print "Message from %s" % msg.split(':')[0];
+
+    except KeyboardInterrupt:
+        print "Goodbye!"
+        voice.logout();
+        sys.exit(0);
 
     except:
         print "Error!"
