@@ -30,22 +30,30 @@ while True:
 
         data = yaml.load(rx);
 
-        if data[':away'] and \
-                len([ _ for _ in args.ignore if 'nick_'+_ in data[':tags'] ]) == 0:
-            # status was away and message wasn't from an ignored nick, so it's
-            # safe to send
-            if data[':type'] == 'private':
-                msg = "%s: %s" % (data[':channel'], data[':message']);
-            else:
-                sender = "";
-                for _ in data[':tags']:
-                    if _[0:5] == 'nick_':
-                        sender = _[5:];
-                msg = "[%s %s] %s: %s" % (data['server'], data['channel'],
-                        sender, data['message']);
+        if data[':away']:
 
-            voice.send_sms(args.destination, msg);
-            print "Message from %s" % msg.split(':')[0];
+            ignicks = [ _ for _ in args.ignore if 'nick_'+_ in data[':tags'] ]
+            if len(ignicks) != 0:
+                print "Message from ignored nick %s" % ignicks[0];
+            
+            elif data[':message'][:15] == "Day changed to " and len(data[':tags']) == 0:
+                print "Day changed message from %s %s" % (data['server'], data['channel']);
+                
+            else:
+                # status was away and message wasn't from an ignored nick, so it's
+                # safe to send
+                if data[':type'] == 'private':
+                    msg = "%s: %s" % (data[':channel'], data[':message']);
+                else:
+                    sender = "";
+                    for _ in data[':tags']:
+                        if _[0:5] == 'nick_':
+                            sender = _[5:];
+                    msg = "[%s %s] %s: %s" % (data['server'], data['channel'],
+                            sender, data['message']);
+
+                voice.send_sms(args.destination, msg);
+                print "Message from %s" % msg.split(':')[0];
 
     except:
         print "Error!"
