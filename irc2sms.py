@@ -39,7 +39,7 @@ while True:
             elif data[':message'][:15] == "Day changed to " and len(data[':tags']) == 0:
                 print "Day changed message from %s %s" % (data['server'], data['channel']);
                 
-            elif data[':message'][-18:] == "is back on server" and len(data[':tags']) == 0:
+            elif data[':message'][-18:] == " is back on server" and len(data[':tags']) == 0:
                 print "Back on server message for %s %s" % (data['server'], data['channel']);
                 
             else:
