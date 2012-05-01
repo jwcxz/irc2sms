@@ -36,11 +36,8 @@ while True:
             if len(ignicks) != 0:
                 print "Message from ignored nick %s" % ignicks[0];
             
-            elif data[':message'][:15] == "Day changed to " and len(data[':tags']) == 0:
-                print "Day changed message from %s %s" % (data['server'], data['channel']);
-                
-            elif data[':message'][-18:] == " is back on server" and len(data[':tags']) == 0:
-                print "Back on server message for %s %s" % (data['server'], data['channel']);
+            elif len(data[':tags']) == 0:
+                print "No tags!";
                 
             else:
                 # status was away and message wasn't from an ignored nick, so it's
@@ -64,4 +61,4 @@ while True:
         sys.exit(0);
 
     except:
-        print "Error!"
+        print "Error! [%s]" % data
