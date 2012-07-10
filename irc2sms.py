@@ -49,8 +49,8 @@ while True:
                     for _ in data[':tags']:
                         if _[0:5] == 'nick_':
                             sender = _[5:];
-                    msg = "[%s %s] %s: %s" % (data['server'], data['channel'],
-                            sender, data['message']);
+                    msg = "[%s %s] %s: %s" % (data[':server'], data[':channel'],
+                            sender, data[':message']);
 
                 voice.send_sms(args.destination, msg);
                 print "Message from %s" % msg.split(':')[0];
